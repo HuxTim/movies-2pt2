@@ -8,6 +8,7 @@ class Validator
 	end
 
 	def results
+		time = Time.now
 		count = 0
 		correct = 0
 		one_away = [0, 0]
@@ -23,12 +24,14 @@ class Validator
 			(0..movies.count-1).each do |j|
 				if(count % 100 == 0) && count > 0
 					puts "100 predictions passed in: #{Time.now-time}"
+					time = Time.now
 				end
-				time = Time.now
+				
 				prediction = @bs.predict(users[i],movies[j])
 				reality = @ts[users[i]][movies[j]]
 				results[reality-1] += 1
 				predictions[prediction-1] += 1
+				count += 1
 				if prediction == reality
 					correct += 1
 				end
@@ -58,12 +61,14 @@ class Validator
 					end
 					
 				end
-			puts "# of correct guesses: #{correct}/count"
-			puts "predicted distribution: #{predictions}"
-			puts "real distribution: #{results}"
-			puts "one away: #{one_away} two away: #{two_away} three away: #{three_away} four away: #{four_away} "
+				if count % 25 == 0
+					puts "# of correct guesses: #{correct}/#{count}"
+					puts "predicted distribution: #{predictions}"
+					puts "real distribution: #{results}"
+					puts "one away: #{one_away} two away: #{two_away} three away: #{three_away} four away: #{four_away} "
+				end
 			end
-			end
+		end
 		
 	end
 	

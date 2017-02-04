@@ -173,7 +173,7 @@ class Ratings
 		end
 		a = ((y*x2)-(x*xy))/((n*x2)-(x*x))
 		b = ((n*xy)-(x*y))/((n*x2)-(x*x))
-		prediction = (a*2/3 + (getaverage(sim_users, movie)))
+		prediction = (a/3 + (getaverage(sim_users, movie)))
 		if prediction < 0
 			return 0
 		elsif prediction > 5
